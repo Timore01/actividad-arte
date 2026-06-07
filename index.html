@@ -225,13 +225,13 @@ const obras=[
 
 // Añadir crossOrigin a todas las imágenes via JS para evitar bloqueo CORS
 function imgSrc(url){
-  return `<img src="${url}" crossorigin="anonymous" referrerpolicy="no-referrer" loading="lazy" onerror="this.parentElement.innerHTML='<div class=fb>🖼️</div>'" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+  return `<img src="${url}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=fb>🖼️</div>'" style="width:100%;height:100%;object-fit:cover;display:block;">`;
 }
 function imgThumb(url){
-  return `<img src="${url}" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="this.style.display='none'" style="width:18px;height:18px;object-fit:cover;border-radius:3px;">`;
+  return `<img src="${url}" onerror="this.style.display='none'" style="width:18px;height:18px;object-fit:cover;border-radius:3px;">`;
 }
 function imgResult(url){
-  return `<img src="${url}" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="this.style.display='none'" style="width:32px;height:32px;object-fit:cover;border-radius:4px;flex-shrink:0;">`;
+  return `<img src="${url}" onerror="this.style.display='none'" style="width:32px;height:32px;object-fit:cover;border-radius:4px;flex-shrink:0;">`;
 }
 
 const salas=[
