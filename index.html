@@ -287,7 +287,7 @@ async function preguntarVincent(texto){
   const b=document.getElementById('vincent-bubble');
   b.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
   try{
-    const r=await fetch('https://vangogh.timo-requejo.workers.dev/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:vincentPersona,messages:[{role:'user',content:texto}]})});
+    const r=await fetch('https://vangogh.timo-requejo.workers.dev/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1000,system:vincentPersona,messages:[{role:'user',content:texto}]})});
     const d=await r.json();
     b.textContent=d.content?.map(x=>x.text||'').join('')||'Perdonad, me distraje con un cuadro...';
   }catch(e){b.textContent='¡Oh là là! Inténtalo de nuevo.';}
@@ -404,3 +404,4 @@ function verificar(){
 function resetAll(){clasificaciones={};obraSeleccionada=null;renderGallery();renderResultadoBlank();}
 </script>
 </body>
+</html>
