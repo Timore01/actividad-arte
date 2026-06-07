@@ -87,6 +87,30 @@ h2{font-size:18px;font-weight:600;color:#1a1a1a;margin-bottom:4px;}
 .rimg{width:32px;height:32px;object-fit:cover;border-radius:4px;flex-shrink:0;}
 .rtexto{font-size:12px;color:#1a1a1a;line-height:1.4;}
 .rsub{font-size:10px;color:#888;margin-top:2px;}
+
+.seccion-titulo{font-size:14px;font-weight:700;color:#1a1a1a;margin:1.2rem 0 0.6rem;}
+.leaderboard{background:white;border-radius:12px;border:1px solid #eee;overflow:hidden;margin-bottom:1rem;}
+.lb-header{display:grid;grid-template-columns:40px 1fr 60px;background:#854F0B;color:white;padding:8px 12px;font-size:12px;font-weight:600;}
+.lb-row{display:grid;grid-template-columns:40px 1fr 60px;padding:8px 12px;border-bottom:1px solid #f5f5f5;font-size:13px;align-items:center;}
+.lb-row:last-child{border-bottom:none;}
+.lb-row.top1{background:#fffbeb;}
+.lb-row.top2{background:#f8f8f8;}
+.lb-row.top3{background:#fdf8f3;}
+.lb-pos{font-weight:700;color:#854F0B;text-align:center;}
+.lb-nombre{color:#1a1a1a;}
+.lb-score{text-align:right;font-weight:600;color:#854F0B;}
+.lb-empty{padding:1rem;text-align:center;font-size:13px;color:#aaa;font-style:italic;}
+
+.estilos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem;}
+.estilo-card{background:white;border-radius:12px;border:1px solid #eee;overflow:hidden;}
+.estilo-header{padding:10px 12px;display:flex;align-items:center;gap:8px;}
+.estilo-dot2{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.estilo-nombre2{font-size:13px;font-weight:700;color:#1a1a1a;}
+.estilo-body{padding:0 12px 12px;}
+.estilo-desc{font-size:12px;color:#555;line-height:1.5;margin-bottom:8px;}
+.sabias-que{background:#fff8e6;border-left:3px solid #E8B84B;padding:8px 10px;border-radius:0 6px 6px 0;}
+.sabias-label{font-size:10px;font-weight:700;color:#854F0B;margin-bottom:3px;}
+.sabias-texto{font-size:11px;color:#666;line-height:1.4;}
 </style>
 </head>
 <body>
@@ -182,6 +206,43 @@ h2{font-size:18px;font-weight:600;color:#1a1a1a;margin-bottom:4px;}
 
 <script>
 // Imágenes via proxy de Wikimedia que permite CORS
+
+const estilosInfo = [
+  {id:"clasicismo", nombre:"Arte clásico", dot:"#185FA5",
+   desc:"El arte de la antigua Grecia y Roma buscaba la perfección y la armonía. Las esculturas representaban el cuerpo humano idealizado y los edificios seguían proporciones matemáticas exactas.",
+   sabias:"La Venus de Milo fue descubierta en 1820 por un campesino griego mientras araba su campo en la isla de Melos. Nadie sabe exactamente cómo perdió los brazos."},
+  {id:"barroco", nombre:"Barroco", dot:"#993C1D",
+   desc:"El Barroco nació en el siglo XVII como respuesta a la Reforma Protestante. La Iglesia Católica usó el arte dramático y emocional para impresionar a los fieles.",
+   sabias:"Velázquez pintó Las Meninas en 1656 y se incluyó a sí mismo en la obra. Es considerada tan compleja que el filósofo Foucault le dedicó un capítulo entero de su libro más famoso."},
+  {id:"neoclasicismo", nombre:"Neoclasicismo", dot:"#3B6D11",
+   desc:"En el siglo XVIII, los artistas redescubrieron las ruinas de Pompeya y Herculano. Esto inspiró un regreso a los ideales griegos y romanos en plena Era de la Razón.",
+   sabias:"Jacques-Louis David, el pintor del Juramento de los Horacios, fue tan cercano a Napoleón que lo retrató coronándose a sí mismo. Luego fue exiliado cuando Napoleón cayó."},
+  {id:"romanticismo", nombre:"Romanticismo", dot:"#993556",
+   desc:"El Romanticismo del siglo XIX reaccionó contra la razón fría de la Ilustración. Los artistas exploraron emociones extremas, la naturaleza salvaje y lo misterioso.",
+   sabias:"Goya pintó Saturno devorando a su hijo directamente sobre las paredes de su casa. Las llamó Pinturas Negras y nunca tuvo intención de mostrarlas al público."},
+  {id:"realismo", nombre:"Realismo", dot:"#5F5E5A",
+   desc:"El Realismo del siglo XIX fue el primer movimiento que retrató a campesinos y obreros como protagonistas del arte, rechazando los temas heroicos o mitológicos.",
+   sabias:"Cuando Madame X de Sargent se expuso en 1884, causó tanto escándalo en París que el pintor tuvo que abandonar Francia y mudarse a Londres para siempre."},
+  {id:"impresionismo", nombre:"Impresionismo", dot:"#0F6E56",
+   desc:"Los impresionistas salieron de sus estudios a pintar al aire libre, capturando la luz natural en distintos momentos del día. Usaban pinceladas sueltas y colores puros.",
+   sabias:"El nombre Impresionismo viene de una crítica burlona al cuadro de Monet Impresión, sol naciente. El crítico lo usó como insulto pero los artistas lo adoptaron con orgullo."},
+  {id:"postimpresionismo", nombre:"Postimpresionismo", dot:"#854F0B",
+   desc:"Los postimpresionistas tomaron la libertad del impresionismo pero la llevaron más lejos, usando el color y la forma para expresar emociones profundas y estructuras geométricas.",
+   sabias:"Van Gogh vendió solo un cuadro en vida. Hoy sus obras valen cientos de millones. La Noche Estrellada fue pintada desde la ventana de su habitación en un manicomio."},
+  {id:"expresionismo", nombre:"Expresionismo", dot:"#534AB7",
+   desc:"El Expresionismo distorsionaba la realidad para mostrar estados emocionales internos. Surgió en Alemania y Noruega como respuesta a la angustia de la vida moderna.",
+   sabias:"Munch pintó El Grito cuatro veces. En el diario personal donde describió la experiencia que inspiró la obra, escribió que sintió un grito interminable atravesando la naturaleza."},
+  {id:"abstraccionismo", nombre:"Abstracción", dot:"#A32D2D",
+   desc:"La abstracción rompió con milenios de representación figurativa. Los artistas creyeron que la forma pura y el color podían comunicar emociones sin necesidad de representar objetos.",
+   sabias:"Kandinsky se volvió abstracto después de no reconocer uno de sus propios cuadros apoyado al revés. Al verlo sin saber qué era, notó que era más bello que cuando sabía lo que representaba."},
+  {id:"surrealismo", nombre:"Surrealismo", dot:"#185FA5",
+   desc:"El Surrealismo exploraba el subconsciente y los sueños, inspirado en las teorías de Freud. Los artistas combinaban imágenes reales de formas imposibles para crear mundos oníricos.",
+   sabias:"Dalí entrenaba su mente para crear imágenes surrealistas durmiendo con una llave en la mano sobre un plato. Al quedarse dormido, la llave caía y lo despertaba en el estado entre el sueño y la vigilia."},
+  {id:"contemporaneo", nombre:"Arte contemporáneo", dot:"#27500A",
+   desc:"El arte contemporáneo desde los años 60 cuestiona qué es el arte mismo. Usa cualquier medio — desde latas de sopa hasta instalaciones gigantes — para comentar sobre la sociedad.",
+   sabias:"Cuando Warhol expuso las 32 latas de sopa Campbell en 1962, una galería vecina protestó colgando latas reales con un cartel que decía El arte verdadero puede comprarse en el supermercado."},
+];
+
 const obras=[
   {id:1, titulo:"Los girasoles", autor:"Van Gogh, 1888", sala:"postimpresionismo", pista:"Pinceladas gruesas, colores intensos, emoción visible",
    img:"data:image/jpeg;base64,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"},
@@ -400,7 +461,69 @@ function verificar(){
     <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Niveles</div>
     <div class="niveles-grid" style="margin-bottom:1rem;">${niveles.map(n=>`<div class="nivel-card${n.nombre===nivel.nombre?' activo':''}" style="${n.nombre===nivel.nombre?'border-color:'+n.border+';':''}"><div class="nivel-emoji">${n.emoji}</div><div class="nivel-nombre">${n.nombre}</div><div class="nivel-rango">${n.min===n.max?n.min+'/20':n.min+'–'+n.max+'/20'}</div></div>`).join('')}</div>
     <div class="resultados-lista">${items.map(i=>`<div class="resultado-item"><div class="rcheck ${i.ok?'ok':'err'}">${i.ok?'✓':'✗'}</div>${imgResult(i.o.img)}<div><div class="rtexto">${i.texto}</div><div class="rsub">${i.sub}</div></div></div>`).join('')}</div>`;
+  guardarPuntaje(nombreAlumno, correctas);
+  
+  document.getElementById('resultado-contenido').innerHTML += `
+    <div class="seccion-titulo">🏆 Tabla de líderes</div>
+    <div class="leaderboard">
+      <div class="lb-header"><div>Pos.</div><div>Alumno/a</div><div style="text-align:right">Puntos</div></div>
+      ${renderLeaderboard()}
+    </div>
+    <div class="seccion-titulo">🎨 Guía de estilos artísticos</div>
+    <div class="estilos-grid">${renderEstilos()}</div>
+  `;
+
   document.getElementById('vincent-bubble').textContent=correctas===20?`¡Mon dieu, ${nombreAlumno}! ¡20 de 20! Has demostrado que el arte vive en ti. ¿Qué obra te hizo pensar más?`:correctas>=16?`¡Fantastique, ${nombreAlumno}! ${correctas} obras bien ubicadas. ¿Cuál fue la que más te costó?`:`${correctas} de 20, ${nombreAlumno}. Cada error es una puerta que aún no has abierto. ¿Vuelves a intentarlo?`;
+}
+
+
+// ---- LEADERBOARD ----
+function guardarPuntaje(nombre, score) {
+  try {
+    let lb = JSON.parse(localStorage.getItem('arte_lb') || '[]');
+    // Actualizar si ya existe, sino agregar
+    const idx = lb.findIndex(e => e.nombre === nombre);
+    if (idx >= 0) {
+      if (score > lb[idx].score) lb[idx].score = score;
+    } else {
+      lb.push({nombre, score});
+    }
+    lb.sort((a,b) => b.score - a.score);
+    localStorage.setItem('arte_lb', JSON.stringify(lb));
+  } catch(e) {}
+}
+
+function renderLeaderboard() {
+  try {
+    const lb = JSON.parse(localStorage.getItem('arte_lb') || '[]');
+    if (lb.length === 0) return '<div class="lb-empty">Aún no hay puntajes registrados</div>';
+    const medals = ['🥇','🥈','🥉'];
+    return lb.slice(0,10).map((e,i) => 
+      `<div class="lb-row ${i===0?'top1':i===1?'top2':i===2?'top3':''}">
+        <div class="lb-pos">${medals[i] || (i+1)}</div>
+        <div class="lb-nombre">${e.nombre}</div>
+        <div class="lb-score">${e.score}/20</div>
+      </div>`
+    ).join('');
+  } catch(e) { return ''; }
+}
+
+function renderEstilos() {
+  return estilosInfo.map(e => `
+    <div class="estilo-card">
+      <div class="estilo-header">
+        <div class="estilo-dot2" style="background:${e.dot}"></div>
+        <div class="estilo-nombre2">${e.nombre}</div>
+      </div>
+      <div class="estilo-body">
+        <div class="estilo-desc">${e.desc}</div>
+        <div class="sabias-que">
+          <div class="sabias-label">¿Sabías que...?</div>
+          <div class="sabias-texto">${e.sabias}</div>
+        </div>
+      </div>
+    </div>`
+  ).join('');
 }
 
 function resetAll(){clasificaciones={};obraSeleccionada=null;renderGallery();renderResultadoBlank();}
